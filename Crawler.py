@@ -8,6 +8,7 @@ from CrawlerResultProcessor import CrawlerResultProcessor
 
 
 class Crawler:
+    """Crawler class that executes the crawling tasks."""
     def __init__(self, url: str, concurrency: int = 2, throttle: int = 3, max_depth: int = 3, max_docs: int = 100, output: str = './data' ):
         self.url = url
         self.concurrency = concurrency
@@ -17,7 +18,7 @@ class Crawler:
         self.output = output
 
     def run(self):
-        """Crawl through a provided URL and store the results in a directory."""
+        """Initializes the queue and starts the worker threads."""
 
         qm = self.create_queue()
 
@@ -37,6 +38,7 @@ class Crawler:
             print(url)
 
     def create_queue(self):
+        """Creates the queue manager. This is a separate method so it can be mocked in the unit tests."""
         qm = CrawlerQueue(self.max_depth, self.max_docs)
         return qm
 
